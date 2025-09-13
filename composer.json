@@ -1,7 +1,6 @@
 {
     "name": "sediqzada/inertia-blueprint",
     "description": "Generate Inertia.js + React + TypeScript pages with shadcn/ui from JSON blueprints",
-    "version": "1.0.0",
     "type": "library",
     "authors": [
         {
