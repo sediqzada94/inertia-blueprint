@@ -27,7 +27,7 @@
 Install via Composer:
 
 ```bash
-composer require sediqzada/inertia-blueprint --dev
+composer require sediqzada/inertia-blueprint:^0.1@beta --dev
 ```
 
 ### Prerequisites
