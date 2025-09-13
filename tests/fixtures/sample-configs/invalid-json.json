@@ -1,0 +1,10 @@
+{
+  "model": "Post",
+  "fields": [
+    {
+      "name": "title",
+      "type": "string"
+      // Missing comma and invalid comment
+    }
+  ],
+  "pages": ["index"]

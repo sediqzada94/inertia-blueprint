@@ -1,0 +1,38 @@
+{
+  "model": "Post",
+  "fields": [
+    {
+      "name": "title",
+      "type": "string",
+      "inputType": "text"
+    },
+    {
+      "name": "content",
+      "type": "text",
+      "inputType": "textarea"
+    },
+    {
+      "name": "published_at",
+      "type": "datetime",
+      "inputType": "datetime"
+    },
+    {
+      "name": "category_id",
+      "type": "integer",
+      "inputType": "select",
+      "field_name": "category",
+      "options": ["categories"],
+      "valueField": "id",
+      "labelField": "name"
+    }
+  ],
+  "routes": {
+    "index": "posts.index",
+    "store": "posts.store",
+    "edit": "posts.edit",
+    "show": "posts.show",
+    "update": "posts.update",
+    "destroy": "posts.destroy"
+  },
+  "pages": ["index", "create", "edit", "view"]
+}

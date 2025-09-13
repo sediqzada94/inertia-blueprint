@@ -1,0 +1,12 @@
+parameters:
+    level: max
+    paths:
+        - src
+    tmpDir: build/phpstan
+    treatPhpDocTypesAsCertain: false
+
+    typeAliases:
+        FieldCollection: 'Illuminate\Support\Collection<int, Sediqzada\InertiaBlueprint\Generators\React\Fields\FieldInterface>'
+
+includes:
+- vendor/phpstan/phpstan-mockery/extension.neon

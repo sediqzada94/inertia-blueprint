@@ -1,0 +1,44 @@
+{
+    "name": "sediqzada/inertia-blueprint",
+    "description": "Generate Inertia.js + React + TypeScript pages with shadcn/ui from JSON blueprints",
+    "version": "1.0.0",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Samiullah Sediqzada",
+            "email": "sediqzada94@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Sediqzada\\InertiaBlueprint\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sediqzada\\InertiaBlueprint\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sediqzada\\InertiaBlueprint\\InertiaBluerintServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "php": ">=8.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0",
+        "orchestra/testbench": "^8.0",
+        "mockery/mockery": "^1.6",
+        "laravel/pint": "^1.24",
+        "rector/rector": "^2.1",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-mockery": "^2.0"
+    },
+    "scripts": {
+        "test": "phpunit"
+    }
+}

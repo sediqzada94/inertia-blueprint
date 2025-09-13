@@ -1,0 +1,27 @@
+version: 2
+updates:
+  - package-ecosystem: 'composer'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    open-pull-requests-limit: 10
+    reviewers:
+      - 'sediqzada94'
+    assignees:
+      - 'sediqzada94'
+    commit-message:
+      prefix: 'deps'
+      include: 'scope'
+
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    open-pull-requests-limit: 5
+    reviewers:
+      - 'sediqzada94'
+    assignees:
+      - 'sediqzada94'
+    commit-message:
+      prefix: 'ci'
+      include: 'scope'
