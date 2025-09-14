@@ -681,7 +681,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 ## 📞 Support
 
-If you discover any bugs, please create an issue on GitHub and DO NOT FORGET TO STAR THE REPO.
+If you discover any bugs, please create an issue on GitHub and **DO NOT FORGET TO STAR THE REPO**.
 
 ---
 
