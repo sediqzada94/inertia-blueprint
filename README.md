@@ -504,7 +504,6 @@ return [
         "update": "admin.products.update",
         "destroy": "admin.products.destroy"
     },
-    "language": "ts",
     "pages": ["index", "create", "edit", "show"]
 }
 ```
@@ -575,7 +574,6 @@ return [
         "update": "admin.users.update",
         "destroy": "admin.users.destroy"
     },
-    "language": "ts",
     "pages": ["index", "create", "edit", "show"]
 }
 ```
