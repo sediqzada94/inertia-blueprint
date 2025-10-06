@@ -18,7 +18,7 @@
 - **Index** - Tables with search and actions
 - **Create** - Form pages with validation and error handling
 - **Edit** - Pre-populated forms with validation and update functionality
-- **Show** - Detailed view pages with clean layouts
+- **View** - Detailed view pages with clean layouts
 
 ---
 
@@ -67,7 +67,7 @@ Create a `blueprint.json` file in your project root:
         { "name": "content", "type": "text", "inputType": "textarea", "searchable": true },
         { "name": "published_at", "type": "datetime", "inputType": "text" }
     ],
-    "pages": ["index", "create", "edit", "show"]
+    "pages": ["index", "create", "edit", "view"]
 }
 ```
 
@@ -261,7 +261,7 @@ You can also define your Laravel route names that correspond to your controller 
 | `index`  | `index`, `destroy` | `show`, `edit`  |
 | `create` | `store`, `index`   | -               |
 | `edit`   | `update`, `index`  | -               |
-| `show`   | `index`            | `edit`          |
+| `view`   | `index`            | `edit`          |
 
 ### Pages Configuration
 
@@ -269,7 +269,7 @@ Choose which pages to generate. Each page type serves a specific purpose:
 
 ```json
 {
-    "pages": ["index", "create", "edit", "show"]
+    "pages": ["index", "create", "edit", "view"]
 }
 ```
 
@@ -280,11 +280,11 @@ Choose which pages to generate. Each page type serves a specific purpose:
 | `index`  | List/table view        | Search, delete confirmation                     |
 | `create` | New record form        | Form validation, file uploads, select dropdowns |
 | `edit`   | Update existing record | Pre-populated form, validation, file handling   |
-| `show`   | Read-only detail view  | Clean layout, formatted data display            |
+| `view`   | Read-only detail view  | Clean layout, formatted data display            |
 
 **Language Support:**
 
-- **TypeScript (`ts`)** - Full type safety, interfaces, proper typing (default and only supported option)
+- **TypeScript (`ts`)** - Full type safety, interfaces, proper typing (default and currently only supported option)
 
 ---
 
@@ -316,7 +316,7 @@ php artisan blueprint:publish-stubs
 php artisan blueprint:publish-stubs --force
 ```
 
-This publishes stub files to `resources/inertia-blueprint-stubs/` where you can:
+This publishes stub files to `resources/inertia-blueprint-stubs/`:
 
 ### Stub Structure
 
@@ -328,7 +328,7 @@ resources/inertia-blueprint-stubs/
     ├── Index.stub      # List/table view template
     ├── Create.stub     # Creation form template
     ├── Edit.stub       # Edit form template
-    └── Show.stub       # Detail view template
+    └── View.stub       # Detail view template
 ```
 
 ## 📁 Generated File Structure
@@ -341,7 +341,7 @@ resources/js/pages/
     ├── Index.tsx    # List view with search & actions
     ├── Create.tsx   # Creation form
     ├── Edit.tsx     # Edit form
-    └── Show.tsx     # Detail view
+    └── View.tsx     # Detail view
 ```
 
 ## 🛠️ Configuration
@@ -425,7 +425,7 @@ return [
         "update": "admin.posts.update",
         "destroy": "admin.posts.destroy"
     },
-    "pages": ["index", "create", "edit", "show"]
+    "pages": ["index", "create", "edit", "view"]
 }
 ```
 
@@ -470,24 +470,21 @@ return [
             "inputType": "checkbox"
         },
         {
-            "name": "category_id",
-            "type": "select",
+            "name": "category",
+            "field_name": "category_id",
+            "type": "string",
             "inputType": "select",
-            "options": {
-                "source": "categories",
-                "valueKey": "id",
-                "labelKey": "name"
-            }
+            "options": "categories",
+            "valueField": "id",
+            "labelField": "name"
         },
         {
-            "name": "brand_id",
-            "type": "select",
+            "name": "brand",
+            "type": "string",
             "inputType": "select",
-            "options": {
-                "source": "brands",
-                "valueKey": "id",
-                "labelKey": "name"
-            }
+            "options": "brands",
+            "valueField": "id",
+            "labelField": "name"
         },
         {
             "name": "product_image",
@@ -504,7 +501,7 @@ return [
         "update": "admin.products.update",
         "destroy": "admin.products.destroy"
     },
-    "pages": ["index", "create", "edit", "show"]
+    "pages": ["index", "create", "edit", "view"]
 }
 ```
 
@@ -550,19 +547,15 @@ return [
             "inputType": "file"
         },
         {
-            "name": "is_active",
-            "type": "boolean",
-            "inputType": "checkbox"
-        },
-        {
-            "name": "role_id",
-            "type": "select",
+            "name": "status",
+            "type": "string",
             "inputType": "select",
-            "options": {
-                "source": "roles",
-                "valueKey": "id",
-                "labelKey": "name"
-            }
+            "options": [
+                { "value": "draft", "label": "Draft" },
+                { "value": "published", "label": "Published" },
+                { "value": "cancelled", "label": "Cancelled" },
+                { "value": "completed", "label": "Completed" }
+            ]
         }
     ],
     "routes": {
@@ -574,7 +567,7 @@ return [
         "update": "admin.users.update",
         "destroy": "admin.users.destroy"
     },
-    "pages": ["index", "create", "edit", "show"]
+    "pages": ["index", "create", "edit", "view"]
 }
 ```
 
@@ -648,6 +641,8 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ```bash
 # Run all tests
 composer test
+# Or
+./vendor/bin/phpunit
 
 # Run pint
 ./vendor/bin/pint --test
