@@ -50,9 +50,6 @@ JSX;
         $config = $field->getConfig();
         $pluralName = Str::of($field->getName())->plural();
 
-        $valueKey = is_string($config->valueField) ? $config->valueField : 'value';
-        $labelKey = is_string($config->labelField) ? $config->labelField : 'label';
-
         if (is_array($config->options)) {
             return collect($config->options)
                 ->map(fn (array $option): string => 

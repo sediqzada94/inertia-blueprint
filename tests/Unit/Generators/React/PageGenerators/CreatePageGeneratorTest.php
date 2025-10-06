@@ -171,12 +171,10 @@ class CreatePageGeneratorTest extends TestCase
                     type: 'string',
                     inputType: 'select',
                     options: [
-                        ['id' => 'active', 'name' => 'Active'],
-                        ['id' => 'inactive', 'name' => 'Inactive'],
-                        ['id' => 'pending', 'name' => 'Pending'],
-                    ],
-                    valueField: 'id',
-                    labelField: 'name'
+                        ['value' => 'active', 'label' => 'Active'],
+                        ['value' => 'inactive', 'label' => 'Inactive'],
+                        ['value' => 'pending', 'label' => 'Pending'],
+                    ]
                 ),
             ],
             pages: ['create'],
@@ -360,12 +358,10 @@ class CreatePageGeneratorTest extends TestCase
                     type: 'string',
                     inputType: 'select',
                     options: [
-                        ['id' => 'conference', 'name' => 'Conference'],
-                        ['id' => 'workshop', 'name' => 'Workshop'],
-                        ['id' => 'meetup', 'name' => 'Meetup'],
-                    ],
-                    valueField: 'id',
-                    labelField: 'name'
+                        ['value' => 'conference', 'label' => 'Conference'],
+                        ['value' => 'workshop', 'label' => 'Workshop'],
+                        ['value' => 'meetup', 'label' => 'Meetup'],
+                    ]
                 ),
                 new FieldConfigDTO(
                     name: 'banner',
