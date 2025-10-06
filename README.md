@@ -165,9 +165,7 @@ Or if the options are static:
         { "value": "published", "label": "Published" },
         { "value": "cancelled", "label": "Cancelled" },
         { "value": "completed", "label": "Completed" }
-    ],
-    "valueField": "value",
-    "labelField": "label"
+    ]
 }
 ```
 
