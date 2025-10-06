@@ -51,9 +51,16 @@ JSX;
         $pluralName = Str::of($field->getName())->plural();
 
         if (is_array($config->options)) {
-            return collect($config->options)
-                ->map(fn (array $option): string => "    <SelectItem value='{$option['value']}'>{$option['label']}</SelectItem>",
-                )
+            /** @var array<int, array{value: string|int, label: string|int}> $options */
+            $options = $config->options;
+
+            return collect($options)
+                ->map(function (array $option): string {
+                    $value = (string) $option['value'];
+                    $label = (string) $option['label'];
+
+                    return "    <SelectItem value='{$value}'>{$label}</SelectItem>";
+                })
                 ->implode(PHP_EOL);
         }
 
