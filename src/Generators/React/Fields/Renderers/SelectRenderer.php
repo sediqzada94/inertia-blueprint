@@ -52,8 +52,7 @@ JSX;
 
         if (is_array($config->options)) {
             return collect($config->options)
-                ->map(fn (array $option): string => 
-                    "    <SelectItem value='{$option["value"]}'>{$option["label"]}</SelectItem>",
+                ->map(fn (array $option): string => "    <SelectItem value='{$option['value']}'>{$option['label']}</SelectItem>",
                 )
                 ->implode(PHP_EOL);
         }
