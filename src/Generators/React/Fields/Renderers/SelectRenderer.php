@@ -28,7 +28,7 @@ class SelectRenderer implements FieldRenderer
     <SelectValue placeholder="{$field->getLabel()}" />
   </SelectTrigger>
   <SelectContent>
-    {$options}
+{$options}
   </SelectContent>
 </Select>
 JSX;
@@ -54,24 +54,19 @@ JSX;
         $labelKey = is_string($config->labelField) ? $config->labelField : 'label';
 
         if (is_array($config->options)) {
-            /** @var array<int, array<string, scalar|null>> $options */
-            $options = array_values(array_filter($config->options, 'is_array'));
-
-            return collect($options)
-                ->map(fn (array $option): string => sprintf(
-                    "    <SelectItem value='%s'>%s</SelectItem>",
-                    str_replace("'", '&#39;', (string) ($option[$valueKey] ?? '')),
-                    htmlspecialchars((string) ($option[$labelKey] ?? ''), ENT_QUOTES, 'UTF-8')
-                ))
+            return collect($config->options)
+                ->map(fn (array $option): string => 
+                    "    <SelectItem value='{$option["value"]}'>{$option["label"]}</SelectItem>",
+                )
                 ->implode(PHP_EOL);
         }
 
         return <<<JSX
-{{$pluralName}.map((item) => (
-  <SelectItem key={item.{$config->valueField}} value={item.{$config->valueField}.toString()}>
-    {item.{$config->labelField}}
-  </SelectItem>
-))}
+    {{$pluralName}.map((item) => (
+      <SelectItem key={item.{$config->valueField}} value={item.{$config->valueField}.toString()}>
+        {item.{$config->labelField}}
+      </SelectItem>
+    ))}
 JSX;
     }
 }
