@@ -637,7 +637,8 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ### Running Tests
 
 ```bash
-# Run all tests
+# Run tests
+
 composer test
 # Or
 ./vendor/bin/phpunit
