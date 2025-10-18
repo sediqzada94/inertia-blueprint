@@ -108,9 +108,9 @@ class SelectRendererTest extends TestCase
 
         $result = $this->renderer->render($field);
 
-        $this->assertStringContainsString("{priorities.map((item) => (", $result);
-        $this->assertStringContainsString("<SelectItem key={item.value} value={item.value.toString()}>", $result);
-        $this->assertStringContainsString(" {item.label}", $result);
+        $this->assertStringContainsString('{priorities.map((item) => (', $result);
+        $this->assertStringContainsString('<SelectItem key={item.value} value={item.value.toString()}>', $result);
+        $this->assertStringContainsString(' {item.label}', $result);
     }
 
     public function test_renders_placeholder_with_field_label(): void

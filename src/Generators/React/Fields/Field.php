@@ -118,10 +118,10 @@ TS;
 
         return Str::of($this->getName())->plural().': '.Str::of($this->getName())->studly().'[]';
     }
-    
+
     public function getFieldOption(): string
     {
-        if (!is_array($this->config->options ?? null)) {
+        if (! is_array($this->config->options ?? null)) {
             return '';
         }
 
@@ -129,7 +129,7 @@ TS;
         $valueField = $this->config->valueField;
         $labelField = $this->config->labelField;
 
-        $selectValues = $options->map(fn ($option) => sprintf(
+        $selectValues = $options->map(fn ($option): string => sprintf(
             "    {%s: '%s', %s: '%s'},",
             $valueField,
             $option['value'] ?? '',

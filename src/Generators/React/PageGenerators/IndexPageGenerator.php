@@ -4,87 +4,33 @@ namespace Sediqzada\InertiaBlueprint\Generators\React\PageGenerators;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Sediqzada\InertiaBlueprint\Contracts\PageGeneratorInterface;
 use Sediqzada\InertiaBlueprint\DTOs\FieldConfigDTO;
-use Sediqzada\InertiaBlueprint\DTOs\PageConfigDTO;
-use Sediqzada\InertiaBlueprint\Generators\React\Fields\FieldFactory;
 use Sediqzada\InertiaBlueprint\Generators\React\Fields\FieldInterface;
-use Sediqzada\InertiaBlueprint\Generators\Services\PageGeneratorService;
 
-class IndexPageGenerator implements PageGeneratorInterface
+class IndexPageGenerator extends BasePageGenerator
 {
-    private string $pageName = 'Index';
+    protected string $pageName = 'Index';
 
-    public function __construct(
-        private readonly PageConfigDTO $config,
-        private readonly PageGeneratorService $pageGenerator
-    ) {}
-
-    public function generate(): void
+    protected function getReplacements(Collection $fields): array
     {
-        $outputPath = $this->pageGenerator->getOutputPath($this->config->model, $this->pageName);
-        $stub = $this->replacedStubPlaceholders();
-        $this->pageGenerator->writeToFile($outputPath, $stub);
-    }
-
-    private function replacedStubPlaceholders(): string
-    {
-        $fields = $this->createFields();
-        $replacements = [
+        return [
             '{{ model }}' => $this->config->model,
-            '{{ modelPluralCamel }}' => Str::of($this->config->model)->camel()->plural(),
-            '{{ modelLower }}' => Str::of($this->config->model)->lower(),
+            '{{ modelPluralCamel }}' => $this->getModelPluralCamel(),
+            '{{ modelLower }}' => $this->getModelLower(),
             '{{ fields }}' => $this->getFields($fields),
-            '{{ routeCreate }}' => $this->pageGenerator->resolveRoute(
-                $this->config->routes['create'] ?? null,
-                $this->config->model,
-                'create'
-            ),
-            '{{ routeEdit }}' => $this->pageGenerator->resolveRoute(
-                $this->config->routes['edit'] ?? null,
-                $this->config->model,
-                'edit'
-            ),
-            '{{ routeShow }}' => $this->pageGenerator->resolveRoute(
-                $this->config->routes['show'] ?? null,
-                $this->config->model,
-                'show'
-            ),
-            '{{ routeDestroy }}' => $this->pageGenerator->resolveRoute(
-                $this->config->routes['destroy'] ?? null,
-                $this->config->model,
-                'destroy'
-            ),
-            '{{ routeIndex }}' => $this->pageGenerator->resolveRoute(
-                $this->config->routes['index'] ?? null,
-                $this->config->model,
-                'index'
-            ),
+            '{{ routeCreate }}' => $this->resolveRoute($this->config->routes['create'] ?? null, 'create'),
+            '{{ routeEdit }}' => $this->resolveRoute($this->config->routes['edit'] ?? null, 'edit'),
+            '{{ routeShow }}' => $this->resolveRoute($this->config->routes['show'] ?? null, 'show'),
+            '{{ routeDestroy }}' => $this->resolveRoute($this->config->routes['destroy'] ?? null, 'destroy'),
+            '{{ routeIndex }}' => $this->resolveRoute($this->config->routes['index'] ?? null, 'index'),
             '{{ tableHeaders }}' => $this->generateTableHeaders($fields),
             '{{ tableCells }}' => $this->generateTableCells($fields),
             '{{ selectTypes }}' => $this->getSelectTypes($fields),
             '{{ hasSearchableFields }}' => $this->hasSearchableFields() ? 'true' : 'false',
             '{{ searchPlaceholder }}' => $this->getSearchPlaceholder(),
         ];
-
-        return $this->pageGenerator->replacePlaceholders(
-            $replacements,
-            $this->pageGenerator->readStub($this->pageName)
-        );
     }
 
-    /**
-     * @return Collection<int, FieldInterface>
-     */
-    private function createFields(): Collection
-    {
-        return collect($this->config->fields)
-            ->map(fn (FieldConfigDTO $field): \Sediqzada\InertiaBlueprint\Generators\React\Fields\FieldInterface => FieldFactory::create($field, 'index'));
-    }
-
-    /**
-     * @param  FieldCollection  $fields
-     */
     private function getFields(Collection $fields): string
     {
         return $fields
@@ -115,9 +61,6 @@ class IndexPageGenerator implements PageGeneratorInterface
             ->implode(PHP_EOL);
     }
 
-    /**
-     * @param  FieldCollection  $fields
-     */
     private function generateTableHeaders(Collection $fields): string
     {
         return $fields
@@ -130,9 +73,6 @@ class IndexPageGenerator implements PageGeneratorInterface
             ->implode(PHP_EOL);
     }
 
-    /**
-     * @param  FieldCollection  $fields
-     */
     private function generateTableCells(Collection $fields): string
     {
         return $fields
@@ -172,10 +112,7 @@ class IndexPageGenerator implements PageGeneratorInterface
             ->implode(PHP_EOL);
     }
 
-    /**
-     * @param  FieldCollection  $fields
-     */
-    private function getSelectTypes(Collection $fields): string
+    protected function getSelectTypes(Collection $fields): string
     {
         return $fields
             ->filter(function (FieldInterface $field): bool {
@@ -187,17 +124,6 @@ class IndexPageGenerator implements PageGeneratorInterface
             ->map(fn (FieldInterface $field): string => $field->getTypeDefinition())
             ->filter()
             ->implode(PHP_EOL.PHP_EOL);
-    }
-
-    private function getTypeScriptType(string $type): string
-    {
-        return match ($type) {
-            'string', 'text', 'email', 'password' => 'string',
-            'integer', 'number' => 'number',
-            'boolean' => 'boolean',
-            'datetime', 'date' => 'string',
-            default => 'string'
-        };
     }
 
     private function hasSearchableFields(): bool
