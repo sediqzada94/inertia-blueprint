@@ -48,6 +48,7 @@ class CreatePageGenerator implements PageGeneratorInterface
             '{{ selectTypes }}' => $this->getSelectTypes($fields),
             '{{ selectInputs }}' => $this->getSelectInputs($fields),
             '{{ propsTypes }}' => $this->getPropsTypes($fields),
+            '{{ selectFieldStaticOptions }}' => $this->getStaticOptions($fields),
         ];
 
         return $this->pageGenerator->replacePlaceholders(
@@ -133,6 +134,14 @@ class CreatePageGenerator implements PageGeneratorInterface
     {
         return $fields
             ->map(fn (FieldInterface $field): string => $field->getPropTypeDeclaration())
+            ->filter()
+            ->implode(PHP_EOL);
+    }
+
+    private function getStaticOptions(Collection $fields): string
+    {
+        return $fields
+            ->map(fn (FieldInterface $field): string => $field->getFieldOption())
             ->filter()
             ->implode(PHP_EOL);
     }

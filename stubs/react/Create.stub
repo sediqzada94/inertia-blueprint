@@ -25,6 +25,8 @@ export default function Create({ {{ selectInputs }} }: Props): React.ReactElemen
 {{ formFieldsDefault }}
   })
 
+  {{ selectFieldStaticOptions }}
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     post(route('{{ routeStore }}'))

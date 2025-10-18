@@ -24,5 +24,7 @@ interface FieldInterface
 
     public function getPropTypeDeclaration(): string;
 
+    public function getFieldOption(): string;
+
     public function getConfig(): FieldConfigDTO;
 }

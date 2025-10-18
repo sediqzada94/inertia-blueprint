@@ -50,6 +50,7 @@ class EditPageGenerator implements PageGeneratorInterface
             '{{ selectTypes }}' => $this->getSelectTypes($fields),
             '{{ inputs }}' => $this->getInputs($fields),
             '{{ propsTypes }}' => $this->getPropsTypes($fields),
+            '{{ selectFieldStaticOptions }}' => $this->getStaticOptions($fields),
         ];
 
         return $this->pageGenerator->replacePlaceholders(
@@ -144,7 +145,7 @@ class EditPageGenerator implements PageGeneratorInterface
     private function getInputs(Collection $fields): string
     {
         $selectInputs = $fields
-            ->filter(fn (FieldInterface $field): bool => $field->getConfig()->inputType === 'select')
+            ->filter(fn (FieldInterface $field): bool => $field->getConfig()->inputType === 'select' && !is_array($field->getConfig()->options))
             ->map(fn (FieldInterface $field) => Str::of($field->getConfig()->name)->plural())
             ->implode(', ');
 
@@ -173,5 +174,13 @@ class EditPageGenerator implements PageGeneratorInterface
             'datetime', 'date' => 'string',
             default => 'string'
         };
+    }
+
+    private function getStaticOptions(Collection $fields): string
+    {
+        return $fields
+            ->map(fn (FieldInterface $field): string => $field->getFieldOption())
+            ->filter()
+            ->implode(PHP_EOL);
     }
 }

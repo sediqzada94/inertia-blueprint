@@ -94,7 +94,7 @@ class SelectRendererTest extends TestCase
     {
         $config = new FieldConfigDTO(
             name: 'priority',
-            type: 'select',
+            type: 'string',
             inputType: 'select',
             options: [
                 ['value' => 'high', 'label' => 'High Priority'],
@@ -108,9 +108,9 @@ class SelectRendererTest extends TestCase
 
         $result = $this->renderer->render($field);
 
-        $this->assertStringContainsString("<SelectItem value='high'>High Priority</SelectItem>", $result);
-        $this->assertStringContainsString("<SelectItem value='medium'>Medium Priority</SelectItem>", $result);
-        $this->assertStringContainsString("<SelectItem value='low'>Low Priority</SelectItem>", $result);
+        $this->assertStringContainsString("{priorities.map((item) => (", $result);
+        $this->assertStringContainsString("<SelectItem key={item.value} value={item.value.toString()}>", $result);
+        $this->assertStringContainsString(" {item.label}", $result);
     }
 
     public function test_renders_placeholder_with_field_label(): void

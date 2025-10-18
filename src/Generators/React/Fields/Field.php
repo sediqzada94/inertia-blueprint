@@ -103,7 +103,7 @@ TS;
 
     public function getInputDeclaration(): string
     {
-        if ($this->config->inputType !== 'select') {
+        if ($this->config->inputType !== 'select' || is_array($this->config->options)) {
             return '';
         }
 
@@ -112,11 +112,38 @@ TS;
 
     public function getPropTypeDeclaration(): string
     {
-        if ($this->config->inputType !== 'select') {
+        if ($this->config->inputType !== 'select' || is_array($this->config->options)) {
             return '';
         }
 
         return Str::of($this->getName())->plural().': '.Str::of($this->getName())->studly().'[]';
+    }
+    
+    public function getFieldOption(): string
+    {
+        if (!is_array($this->config->options ?? null)) {
+            return '';
+        }
+
+        $options = collect($this->config->options);
+        $valueField = $this->config->valueField;
+        $labelField = $this->config->labelField;
+
+        $selectValues = $options->map(fn ($option) => sprintf(
+            "    {%s: '%s', %s: '%s'},",
+            $valueField,
+            $option['value'] ?? '',
+            $labelField,
+            $option['value'] ?? ''
+        ))->implode(PHP_EOL);
+
+        $name = Str::of($this->getName());
+        $pluralName = $name->plural();
+        $studlyName = $name->studly();
+
+        return "const {$pluralName}: {$studlyName}[] = [".PHP_EOL
+            .$selectValues.PHP_EOL
+            .'    ]';
     }
 
     public function getConfig(): FieldConfigDTO

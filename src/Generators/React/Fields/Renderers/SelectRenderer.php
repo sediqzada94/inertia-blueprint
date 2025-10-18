@@ -50,20 +50,6 @@ JSX;
         $config = $field->getConfig();
         $pluralName = Str::of($field->getName())->plural();
 
-        if (is_array($config->options)) {
-            /** @var array<int, array{value: string|int, label: string|int}> $options */
-            $options = $config->options;
-
-            return collect($options)
-                ->map(function (array $option): string {
-                    $value = (string) $option['value'];
-                    $label = (string) $option['label'];
-
-                    return "    <SelectItem value='{$value}'>{$label}</SelectItem>";
-                })
-                ->implode(PHP_EOL);
-        }
-
         return <<<JSX
     {{$pluralName}.map((item) => (
       <SelectItem key={item.{$config->valueField}} value={item.{$config->valueField}.toString()}>
