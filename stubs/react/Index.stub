@@ -40,11 +40,9 @@ interface Props {
 
 export default function Index({ {{ modelPluralCamel }}, filters }: Props): React.ReactElement {
   const [search, setSearch] = useState(filters?.search || '');
-  const hasSearchableFields = {{ hasSearchableFields }};
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      if (hasSearchableFields) {
         const params = new URLSearchParams(window.location.search);
         
         if (search) {
@@ -60,11 +58,10 @@ export default function Index({ {{ modelPluralCamel }}, filters }: Props): React
           preserveScroll: true,
           replace: true,
         });
-      }
     }, 300);
 
     return () => clearTimeout(timeoutId);
-  }, [search, hasSearchableFields]);
+  }, [search]);
 
   const handleDelete = (id: number) => {
       router.delete(route('{{ routeDestroy }}', id), {
@@ -89,7 +86,6 @@ export default function Index({ {{ modelPluralCamel }}, filters }: Props): React
           </Link>
         </div>
 
-        {hasSearchableFields && (
           <div className="mb-4">
             <div className="relative max-w-sm">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
@@ -110,7 +106,6 @@ export default function Index({ {{ modelPluralCamel }}, filters }: Props): React
               )}
             </div>
           </div>
-        )}
 
         <Table>
           <TableHeader>
