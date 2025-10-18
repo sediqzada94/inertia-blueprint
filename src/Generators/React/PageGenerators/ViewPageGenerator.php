@@ -10,6 +10,10 @@ class ViewPageGenerator extends BasePageGenerator
 {
     protected string $pageName = 'View';
 
+    /**
+     * @param  Collection<int, FieldInterface>  $fields
+     * @return array<string, string>
+     */
     protected function getReplacements(Collection $fields): array
     {
         return [
@@ -23,6 +27,9 @@ class ViewPageGenerator extends BasePageGenerator
         ];
     }
 
+    /**
+     * @param  Collection<int, FieldInterface>  $fields
+     */
     private function getFields(Collection $fields): string
     {
         return $fields
@@ -41,6 +48,9 @@ class ViewPageGenerator extends BasePageGenerator
             ->implode(PHP_EOL);
     }
 
+    /**
+     * @param  Collection<int, FieldInterface>  $fields
+     */
     private function getViewFields(Collection $fields): string
     {
         $modelVar = $this->getModelCamel();
@@ -112,6 +122,9 @@ JSX;
         return $gridFieldsHtml.($textareaFieldsHtml ? PHP_EOL.'        </div>'.PHP_EOL.$textareaFieldsHtml : PHP_EOL.'        </div>');
     }
 
+    /**
+     * @param  Collection<int, FieldInterface>  $fields
+     */
     protected function getSelectTypes(Collection $fields): string
     {
         return $fields

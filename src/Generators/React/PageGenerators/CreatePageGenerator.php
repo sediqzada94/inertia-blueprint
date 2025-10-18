@@ -10,6 +10,10 @@ class CreatePageGenerator extends BasePageGenerator
 {
     protected string $pageName = 'Create';
 
+    /**
+     * @param  Collection<int, FieldInterface>  $fields
+     * @return array<string, string>
+     */
     protected function getReplacements(Collection $fields): array
     {
         return [
@@ -25,6 +29,9 @@ class CreatePageGenerator extends BasePageGenerator
         ];
     }
 
+    /**
+     * @param  Collection<int, FieldInterface>  $fields
+     */
     private function getFormFieldsDefault(Collection $fields): string
     {
         return $fields
@@ -32,6 +39,9 @@ class CreatePageGenerator extends BasePageGenerator
             ->implode(PHP_EOL);
     }
 
+    /**
+     * @param  Collection<int, FieldInterface>  $fields
+     */
     private function getSelectInputs(Collection $fields): string
     {
         $selectInputs = $fields

@@ -27,6 +27,10 @@ abstract class BasePageGenerator implements PageGeneratorInterface
         $this->pageGenerator->writeToFile($outputPath, $stub);
     }
 
+    /**
+     * @param  Collection<int, FieldInterface>  $fields
+     * @return array<string, string>
+     */
     abstract protected function getReplacements(Collection $fields): array;
 
     protected function replacedStubPlaceholders(): string
@@ -34,6 +38,7 @@ abstract class BasePageGenerator implements PageGeneratorInterface
         $fields = $this->createFields();
         $replacements = $this->getReplacements($fields);
 
+        /** @var array<string, string> $replacements */
         return $this->pageGenerator->replacePlaceholders(
             $replacements,
             $this->pageGenerator->readStub($this->pageName)
@@ -56,9 +61,6 @@ abstract class BasePageGenerator implements PageGeneratorInterface
         return strtolower($this->pageName);
     }
 
-    /**
-     * Common method to get TypeScript type from PHP type
-     */
     protected function getTypeScriptType(string $type): string
     {
         return match ($type) {
@@ -70,9 +72,6 @@ abstract class BasePageGenerator implements PageGeneratorInterface
         };
     }
 
-    /**
-     * Common method to indent content
-     */
     protected function indentContent(string $content, int $spaces): string
     {
         $trimmedContent = Str::of($content)->trim();
@@ -88,7 +87,7 @@ abstract class BasePageGenerator implements PageGeneratorInterface
     }
 
     /**
-     * Common method to get select types
+     * @param  Collection<int, FieldInterface>  $fields
      */
     protected function getSelectTypes(Collection $fields): string
     {
@@ -99,7 +98,7 @@ abstract class BasePageGenerator implements PageGeneratorInterface
     }
 
     /**
-     * Common method to get props types
+     * @param  Collection<int, FieldInterface>  $fields
      */
     protected function getPropsTypes(Collection $fields): string
     {
@@ -110,7 +109,7 @@ abstract class BasePageGenerator implements PageGeneratorInterface
     }
 
     /**
-     * Common method to get static options
+     * @param  Collection<int, FieldInterface>  $fields
      */
     protected function getStaticOptions(Collection $fields): string
     {
@@ -120,9 +119,6 @@ abstract class BasePageGenerator implements PageGeneratorInterface
             ->implode(PHP_EOL);
     }
 
-    /**
-     * Common method to resolve routes
-     */
     protected function resolveRoute(?string $route, string $action): string
     {
         return $this->pageGenerator->resolveRoute(
@@ -133,7 +129,7 @@ abstract class BasePageGenerator implements PageGeneratorInterface
     }
 
     /**
-     * Common method to get form inputs with grid/textarea separation
+     * @param  Collection<int, FieldInterface>  $fields
      */
     protected function getFormInputs(Collection $fields): string
     {
@@ -151,25 +147,16 @@ abstract class BasePageGenerator implements PageGeneratorInterface
         return $gridFieldsHtml.($textareaFieldsHtml ? PHP_EOL.'          </div>'.PHP_EOL.$textareaFieldsHtml : PHP_EOL.'          </div>');
     }
 
-    /**
-     * Common method to get model variable name in camelCase
-     */
     protected function getModelCamel(): string
     {
         return Str::of($this->config->model)->camel()->toString();
     }
 
-    /**
-     * Common method to get model variable name in plural camelCase
-     */
     protected function getModelPluralCamel(): string
     {
         return Str::of($this->config->model)->camel()->plural()->toString();
     }
 
-    /**
-     * Common method to get model name in lowercase
-     */
     protected function getModelLower(): string
     {
         return Str::of($this->config->model)->lower()->toString();

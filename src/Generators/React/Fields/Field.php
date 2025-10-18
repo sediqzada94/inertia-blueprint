@@ -129,13 +129,25 @@ TS;
         $valueField = $this->config->valueField;
         $labelField = $this->config->labelField;
 
-        $selectValues = $options->map(fn ($option): string => sprintf(
-            "    {%s: '%s', %s: '%s'},",
-            $valueField,
-            $option['value'] ?? '',
-            $labelField,
-            $option['value'] ?? ''
-        ))->implode(PHP_EOL);
+        $selectValues = $options->map(function ($option) use ($valueField, $labelField): string {
+            if (! is_array($option)) {
+                return '';
+            }
+
+            $valueFieldRaw = $option[$valueField] ?? '';
+            $labelFieldRaw = $option[$labelField] ?? '';
+
+            $valueFieldValue = is_scalar($valueFieldRaw) ? (string) $valueFieldRaw : '';
+            $labelFieldValue = is_scalar($labelFieldRaw) ? (string) $labelFieldRaw : '';
+
+            return sprintf(
+                "    {%s: '%s', %s: '%s'},",
+                $valueField,
+                $valueFieldValue,
+                $labelField,
+                $labelFieldValue
+            );
+        })->implode(PHP_EOL);
 
         $name = Str::of($this->getName());
         $pluralName = $name->plural();

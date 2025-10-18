@@ -10,6 +10,10 @@ class EditPageGenerator extends BasePageGenerator
 {
     protected string $pageName = 'Edit';
 
+    /**
+     * @param  Collection<int, FieldInterface>  $fields
+     * @return array<string, string>
+     */
     protected function getReplacements(Collection $fields): array
     {
         return [
@@ -27,6 +31,9 @@ class EditPageGenerator extends BasePageGenerator
         ];
     }
 
+    /**
+     * @param  Collection<int, FieldInterface>  $fields
+     */
     private function getFields(Collection $fields): string
     {
         return $fields
@@ -40,6 +47,9 @@ class EditPageGenerator extends BasePageGenerator
             ->implode(PHP_EOL);
     }
 
+    /**
+     * @param  Collection<int, FieldInterface>  $fields
+     */
     private function getFormFieldsDefault(Collection $fields): string
     {
         $modelVar = $this->getModelCamel();
@@ -54,6 +64,9 @@ class EditPageGenerator extends BasePageGenerator
             ->implode(PHP_EOL);
     }
 
+    /**
+     * @param  Collection<int, FieldInterface>  $fields
+     */
     private function getInputs(Collection $fields): string
     {
         $selectInputs = $fields

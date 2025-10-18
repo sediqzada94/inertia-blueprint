@@ -11,6 +11,10 @@ class IndexPageGenerator extends BasePageGenerator
 {
     protected string $pageName = 'Index';
 
+    /**
+     * @param  Collection<int, FieldInterface>  $fields
+     * @return array<string, string>
+     */
     protected function getReplacements(Collection $fields): array
     {
         return [
@@ -31,6 +35,9 @@ class IndexPageGenerator extends BasePageGenerator
         ];
     }
 
+    /**
+     * @param  Collection<int, FieldInterface>  $fields
+     */
     private function getFields(Collection $fields): string
     {
         return $fields
@@ -61,6 +68,9 @@ class IndexPageGenerator extends BasePageGenerator
             ->implode(PHP_EOL);
     }
 
+    /**
+     * @param  Collection<int, FieldInterface>  $fields
+     */
     private function generateTableHeaders(Collection $fields): string
     {
         return $fields
@@ -73,6 +83,9 @@ class IndexPageGenerator extends BasePageGenerator
             ->implode(PHP_EOL);
     }
 
+    /**
+     * @param  Collection<int, FieldInterface>  $fields
+     */
     private function generateTableCells(Collection $fields): string
     {
         return $fields
@@ -112,6 +125,9 @@ class IndexPageGenerator extends BasePageGenerator
             ->implode(PHP_EOL);
     }
 
+    /**
+     * @param  Collection<int, FieldInterface>  $fields
+     */
     protected function getSelectTypes(Collection $fields): string
     {
         return $fields
