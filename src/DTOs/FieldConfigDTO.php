@@ -35,7 +35,7 @@ class FieldConfigDTO
             name: $data['name'],
             type: $data['type'],
             inputType: $data['inputType'],
-            fieldName: $data['field_name'] ?? null,
+            fieldName: $data['fieldName'] ?? null,
             options: $data['options'] ?? null,
             valueField: $data['inputType'] === 'select' ? $data['valueField'] ?? 'id' : null,
             labelField: $data['inputType'] === 'select' ? $data['labelField'] ?? 'name' : null,

@@ -59,7 +59,7 @@ class FullGenerationTest extends TestCase
             'fields' => [
                 ['name' => 'name', 'type' => 'string', 'inputType' => 'text'],
                 ['name' => 'email', 'type' => 'string', 'inputType' => 'email'],
-                ['name' => 'role_id', 'type' => 'integer', 'inputType' => 'select', 'options' => ['roles'], 'field_name' => 'role'],
+                ['name' => 'role_id', 'type' => 'integer', 'inputType' => 'select', 'options' => ['roles'], 'fieldName' => 'role'],
             ],
             'pages' => ['index', 'create'],
         ];
