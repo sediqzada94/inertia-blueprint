@@ -171,11 +171,13 @@ Or if the options are static:
     "type": "string",
     "inputType": "select",
     "options": [
-        { "value": "draft", "label": "Draft" },
-        { "value": "published", "label": "Published" },
-        { "value": "cancelled", "label": "Cancelled" },
-        { "value": "completed", "label": "Completed" }
-    ]
+        { "status": "draft", "label": "Draft" },
+        { "status": "published", "label": "Published" },
+        { "status": "cancelled", "label": "Cancelled" },
+        { "status": "completed", "label": "Completed" }
+    ],
+    "valueField": "status",
+    "labelField": "label"
 }
 ```
 
@@ -559,11 +561,13 @@ return [
             "type": "string",
             "inputType": "select",
             "options": [
-                { "value": "draft", "label": "Draft" },
-                { "value": "published", "label": "Published" },
-                { "value": "cancelled", "label": "Cancelled" },
-                { "value": "completed", "label": "Completed" }
-            ]
+                { "status": "draft", "label": "Draft" },
+                { "status": "published", "label": "Published" },
+                { "status": "cancelled", "label": "Cancelled" },
+                { "status": "completed", "label": "Completed" }
+            ],
+            "valueField": "status",
+            "labelField": "label"
         }
     ],
     "routes": {
