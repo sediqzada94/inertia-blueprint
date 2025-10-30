@@ -65,7 +65,16 @@ Create a `blueprint.json` file in your project root:
     "fields": [
         { "name": "title", "type": "string", "inputType": "text", "searchable": true },
         { "name": "content", "type": "text", "inputType": "textarea", "searchable": true },
-        { "name": "published_at", "type": "datetime", "inputType": "text" }
+        { "name": "published_at", "type": "datetime", "inputType": "text" },
+        {
+            "name": "category",
+            "fieldName": "category_id",
+            "type": "string",
+            "inputType": "select",
+            "options": "categories",
+            "valueField": "id",
+            "labelField": "name"
+        }
     ],
     "pages": ["index", "create", "edit", "view"]
 }
