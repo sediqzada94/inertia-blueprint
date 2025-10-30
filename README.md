@@ -65,7 +65,16 @@ Create a `blueprint.json` file in your project root:
     "fields": [
         { "name": "title", "type": "string", "inputType": "text", "searchable": true },
         { "name": "content", "type": "text", "inputType": "textarea", "searchable": true },
-        { "name": "published_at", "type": "datetime", "inputType": "text" }
+        { "name": "published_at", "type": "datetime", "inputType": "text" },
+        {
+            "name": "category",
+            "fieldName": "category_id",
+            "type": "string",
+            "inputType": "select",
+            "options": "categories",
+            "valueField": "id",
+            "labelField": "name"
+        }
     ],
     "pages": ["index", "create", "edit", "view"]
 }
@@ -116,7 +125,7 @@ Each field supports the following properties:
 
 ```json
 {
-  "name": "field_name",                    // Required: Database field name
+  "name": "fieldName",                    // Required: Database field name
   "type": "string|text|number|boolean|datetime|file|select",  // Required: Data type
   "inputType": "text|textarea|number|checkbox|file|select",   // Required: Input component type
   "searchable": true|false,                // Optional: Include in search functionality
@@ -144,12 +153,13 @@ If the options are provided by controller:
 
 ```json
 {
-    "name": "category_id",
-    "type": "string",
-    "inputType": "select",
-    "options": "categories",
-    "valueField": "id",
-    "labelField": "name"
+            "name": "category",
+            "fieldName": "category_id",
+            "type": "string",
+            "inputType": "select",
+            "options": "categories",
+            "valueField": "id",
+            "labelField": "name"
 }
 ```
 
@@ -161,11 +171,13 @@ Or if the options are static:
     "type": "string",
     "inputType": "select",
     "options": [
-        { "value": "draft", "label": "Draft" },
-        { "value": "published", "label": "Published" },
-        { "value": "cancelled", "label": "Cancelled" },
-        { "value": "completed", "label": "Completed" }
-    ]
+        { "status": "draft", "label": "Draft" },
+        { "status": "published", "label": "Published" },
+        { "status": "cancelled", "label": "Cancelled" },
+        { "status": "completed", "label": "Completed" }
+    ],
+    "valueField": "status",
+    "labelField": "label"
 }
 ```
 
@@ -406,7 +418,7 @@ return [
         },
         {
             "name": "category",
-            "field_name": "category_id",
+            "fieldName": "category_id",
             "type": "string",
             "inputType": "select",
             "options": "categories",
@@ -469,7 +481,7 @@ return [
         },
         {
             "name": "category",
-            "field_name": "category_id",
+            "fieldName": "category_id",
             "type": "string",
             "inputType": "select",
             "options": "categories",
@@ -549,11 +561,13 @@ return [
             "type": "string",
             "inputType": "select",
             "options": [
-                { "value": "draft", "label": "Draft" },
-                { "value": "published", "label": "Published" },
-                { "value": "cancelled", "label": "Cancelled" },
-                { "value": "completed", "label": "Completed" }
-            ]
+                { "status": "draft", "label": "Draft" },
+                { "status": "published", "label": "Published" },
+                { "status": "cancelled", "label": "Cancelled" },
+                { "status": "completed", "label": "Completed" }
+            ],
+            "valueField": "status",
+            "labelField": "label"
         }
     ],
     "routes": {
