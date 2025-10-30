@@ -153,12 +153,13 @@ If the options are provided by controller:
 
 ```json
 {
-    "name": "category_id",
-    "type": "string",
-    "inputType": "select",
-    "options": "categories",
-    "valueField": "id",
-    "labelField": "name"
+            "name": "category",
+            "fieldName": "category_id",
+            "type": "string",
+            "inputType": "select",
+            "options": "categories",
+            "valueField": "id",
+            "labelField": "name"
 }
 ```
 
