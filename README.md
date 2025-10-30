@@ -125,7 +125,7 @@ Each field supports the following properties:
 
 ```json
 {
-  "name": "field_name",                    // Required: Database field name
+  "name": "fieldName",                    // Required: Database field name
   "type": "string|text|number|boolean|datetime|file|select",  // Required: Data type
   "inputType": "text|textarea|number|checkbox|file|select",   // Required: Input component type
   "searchable": true|false,                // Optional: Include in search functionality
@@ -415,7 +415,7 @@ return [
         },
         {
             "name": "category",
-            "field_name": "category_id",
+            "fieldName": "category_id",
             "type": "string",
             "inputType": "select",
             "options": "categories",
@@ -478,7 +478,7 @@ return [
         },
         {
             "name": "category",
-            "field_name": "category_id",
+            "fieldName": "category_id",
             "type": "string",
             "inputType": "select",
             "options": "categories",
